@@ -5,6 +5,7 @@
 .globl triangulo_sup
 .globl cartel
 .globl detalle_arena
+.globl nube
 
 pixel:                      // Esta rutina pinta de color x0 el pixel que se encuentra en la posicion (x,y) con x=x1, y=x2
     sub sp, sp, 16          // Reserva lugar en el stack
@@ -46,6 +47,7 @@ cuadrado:                   // Esta rutina pinta un cuadrado de color x0, de anc
     str x30, [sp, 16]
     str x4, [sp, 8]
     str x2, [sp, 0]
+
 yloop:
     bl fila
     add x2, x2, 1
@@ -94,7 +96,7 @@ tsloop:
     add sp, sp, 24
     br x30
 
-detalle_arena:
+detalle_arena:                      // Esta rutina dibuja unos detalles en la arena a partir del color x
     sub sp, sp, 48
     str x30, [sp, 40]
     str x4, [sp, 32]
@@ -152,54 +154,79 @@ yloop_out01:
     add sp, sp, 48
     br x30
 
-cartel:                         // Esta Rutina dibuja un cartel que dice ODC 2025
-    sub sp, sp, 48
-    str x30, [sp, 40]
+cartel:                         // Esta Rutina dibuja un cartel que dice "OdC 2025" de color x29
+    sub sp, sp, 72
+    str x30, [sp, 64]
+    str x7, [sp, 56]
+    str x6, [sp, 48]
+    str x5, [sp, 40]
     str x4, [sp, 32]
     str x3, [sp, 24]
     str x2, [sp, 16]
     str x1, [sp, 8]
     str x0, [sp, 0]
     
-    movz x0, 0x74, lsl 16
-    movk x0, 0x5330, lsl 0
-    
-    mov x1, 450
-    mov x2, 250
-    mov x3, 35
-    mov x4, 180
-    bl cuadrado
-    
-    movz x0, 0x8a, lsl 16
-    movk x0, 0x6642, lsl 0
-    
-    mov x1, 400
-    mov x2, 260
-    mov x3, 135
-    mov x4, 40
-    bl cuadrado
+    mov x5, x29                 // Guarda el color solicitado (Recomendado 0x8a6642)
+
+    mov x0, x5
+
+    lsr x6, x0, 8
+
+    lsr x7, x0, 16
+
+    and x0,  x0, 0xff
+    and x6,  x6, 0xff
+    and x7,  x7, 0xff
+
+    sub x0, x0, 20
+    sub x6, x6, 20
+    sub x7, x7, 20
+
+    lsl x6, x6, 8
+    lsl x7, x7, 16
+
+    orr x0, x0, x6
+    orr x0, x0, x7
+
+	mov x1, 450
+	mov x2, 250
+	mov x3, 35
+	mov x4, 180
+	bl cuadrado
+
+	mov x0, x5
+
+	mov x1, 400
+	mov x2, 260
+	mov x3, 135
+	mov x4, 40
+	bl cuadrado
 
     bl texto
-    
-    mov x1, 535
-    mov x2, 280
-    mov x3, 20
-    bl triangulo_inf
-    
-    bl triangulo_sup
+
+	mov x1, 535
+	mov x2, 280
+	mov x3, 20
+	bl triangulo_inf
+
+	bl triangulo_sup
 
     ldr x0, [sp, 0]
     ldr x1, [sp, 8]
     ldr x2, [sp, 16]
     ldr x3, [sp, 24]
     ldr x4, [sp, 32]
-    ldr x30, [sp, 40]
-    add sp, sp, 48
+    ldr x5, [sp, 40]
+    ldr x6, [sp, 48]
+    ldr x7, [sp, 56]
+    ldr x30, [sp, 64]
+    add sp, sp, 72
     br x30
 
-texto:
-    sub sp, sp, 64
-    str x30, [sp, 56]
+texto:                              // Esta rutina dibuja el texto "OdC 2025" a partir de una posicion (x1, x2) sobre el color de fondo x0
+    sub sp, sp, 72
+    str x30, [sp, 64]
+    str x11, [sp, 56]
     str x10, [sp, 48]
     str x9, [sp, 40]
     str x4, [sp, 32]
@@ -207,6 +234,8 @@ texto:
     str x2, [sp, 16]
     str x1, [sp, 8]
     str x0, [sp, 0]
+
+    mov x11, x0
 
     movz x0, 0x1c, lsl 16
     movk x0, 0x1610, lsl 0
@@ -239,8 +268,7 @@ texto:
     bl cuadrado
 //------------------ DARLE FORMA AL TEXTO --------------------
 
-    movz x0, 0x8a, lsl 16
-	movk x0, 0x6642, lsl 0
+    mov x0, x11
     
     //------------------ DARLE FORMA A LA O --------------------
     add x1, x9, 8
@@ -312,6 +340,49 @@ texto:
     add x2, x2, 13
     mov x3, 12
     mov x4, 11
+    bl cuadrado
+
+    ldr x0, [sp, 0]
+    ldr x1, [sp, 8]
+    ldr x2, [sp, 16]
+    ldr x3, [sp, 24]
+    ldr x4, [sp, 32]
+    ldr x9, [sp, 40]
+    ldr x10, [sp, 48]
+    ldr x11, [sp, 56]
+    ldr x30, [sp, 64]
+    add sp, sp, 72
+    br x30
+
+nube:                       // Esta rutina dibuja una nube de color x5, a partir de la posicion (x1, x2)
+    sub sp, sp, 64
+    str x30, [sp, 56]
+    str x10, [sp, 48]
+    str x9, [sp, 40]
+    str x4, [sp, 32]
+    str x3, [sp, 24]
+    str x2, [sp, 16]
+    str x1, [sp, 8]
+    str x0, [sp, 0]
+
+    mov x9, x1
+    mov x10, x2
+    mov x0, x5
+
+    mov x3, 100
+    mov x4, 40
+    bl cuadrado
+
+    add x1, x9, 15
+    sub x2, x10, 10
+    mov x3, 70
+    mov x4, 55
+    bl cuadrado
+
+    add x1, x9, 35
+    sub x2, x10, 15
+    mov x3, 30
+    mov x4, 5
     bl cuadrado
 
     ldr x0, [sp, 0]
