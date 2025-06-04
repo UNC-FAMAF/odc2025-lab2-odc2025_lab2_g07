@@ -131,9 +131,15 @@ detalle_arena:              // Esta rutina dibuja unos detalles en la arena a pa
     and x1,  x1, 0xff       // Hace una mascara para que en los 8 bits menos significativos de x1 quede el verde y el resto 0
     and x2,  x2, 0xff       // Hace una mascara para que en los 8 bits menos significativos de x0 quede el rojo y el resto 0
 
-    sub x0, x0, 10          // Decrementa el numero que indica el color azul (la idea es oscurecerlo)
-    sub x1, x1, 10          // Decrementa el numero que indica el color verde (la idea es oscurecerlo)
-    sub x2, x2, 10          // Decrementa el numero que indica el color rojo (la idea es oscurecerlo)
+    mov x3, 9               // Quiero multiplicar por 9 y dividir por 10
+    mov x4, 10              // O sea multiplica por 0.9 cada color para oscurecerlo
+
+    mul x0, x0, x3          // Multiplico por 0.9, decrementa el numero que indica el color azul (la idea es oscurecerlo)
+    udiv x0, x0, x4         // ..
+    mul x1, x1, x3          // Multiplico por 0.9, decrementa el numero que indica el color azul (la idea es oscurecerlo)
+    udiv x1, x1, x4         // ..
+    mul x2, x2, x3          // Multiplico por 0.9, decrementa el numero que indica el color rojo (la idea es oscurecerlo)
+    udiv x2, x2, x4         // ..
 
     lsl x1, x1, 8           // Pone al color verde en los bits 15 - 8
     lsl x2, x2, 16          // Pone al color rojo en los bits 23 - 16 
@@ -207,8 +213,8 @@ texto:                              // Esta rutina dibuja el texto "OdC 2025" a 
 
     mov x11, x0                     // Guarda el color de fondo del lugar donde va a estar el texto
 
-    movz x0, 0x1c, lsl 16           // Setea en x0 el color de las letras que usara como color para los rectangulos que le dara forma mas adelante
-    movk x0, 0x1610, lsl 0          // ..
+    movz x0, 0x00, lsl 16           // Setea en x0 el color de las letras que usara como color para los rectangulos que le dara forma mas adelante
+    movk x0, 0x0000, lsl 0          // ..
 
     mov x9, x1                      // Guarda la direccion del eje x
     mov x10, x2                     // Guarda la riceccion del eje y
@@ -347,9 +353,15 @@ cartel:                         // Esta Rutina dibuja un cartel que dice "OdC 20
     and x6,  x6, 0xff       // Hace una mascara para que en los 8 bits menos significativos de x1 quede el verde y el resto 0
     and x7,  x7, 0xff       // Hace una mascara para que en los 8 bits menos significativos de x0 quede el rojo y el resto 0
 
-    sub x0, x0, 20          // Decrementa el numero que indica el color azul (la idea es oscurecerlo)
-    sub x6, x6, 20          // Decrementa el numero que indica el color verde (la idea es oscurecerlo)
-    sub x7, x7, 20          // Decrementa el numero que indica el color rojo (la idea es oscurecerlo)
+    mov x1, 8               // Quiero multiplicar por 8 y dividir por 10
+    mov x2, 10              // O sea multiplica por 0.8 cada color para oscurecerlo
+
+    mul x0, x0, x1          // Multiplico por 0.8, decrementa el numero que indica el color azul (la idea es oscurecerlo)
+    udiv x0, x0, x2         // ..
+    mul x6, x6, x1          // Multiplico por 0.8, decrementa el numero que indica el color azul (la idea es oscurecerlo)
+    udiv x6, x6, x2         // ..
+    mul x7, x7, x1          // Multiplico por 0.8, decrementa el numero que indica el color rojo (la idea es oscurecerlo)
+    udiv x7, x7, x2         // ..
 
     lsl x6, x6, 8           // Pone al color verde en los bits 15 - 8
     lsl x7, x7, 16          // Pone al color rojo en los bits 23 - 16 
