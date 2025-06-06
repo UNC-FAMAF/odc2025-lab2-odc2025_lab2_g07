@@ -23,15 +23,16 @@
 		bl cuadrado
 
 		sub x1, x9, 10
-    	add x2, x10, 20
+
+		add x2, x10, 20
     	mov x3, 20
     	mov x4, 20
     	bl cuadrado
 
     	add x1, x9, 20
     	add x2,x10, 20
-    	mov x3, 20
-    	mov x4, 40
+    	mov x3, 25
+    	mov x4, 50
     	bl cuadrado 
 
     	add x1, x9, 50
@@ -40,26 +41,30 @@
     	mov x4, 20
     	bl cuadrado
 
-    	sub x1, x9, 30
+    	sub x1, x9, 25
     	add x2,x10, 10
     	mov x3, 20
     	mov x4, 20
     	bl cuadrado
+
     	sub x1, x9, 10
     	add x2,x10, 15
     	mov x3, 5
     	mov x4, 5
     	bl cuadrado
+
     	sub x1, x9, 20
     	add x2,x10, 30
     	mov x3, 10
     	mov x4, 5
     	bl cuadrado
+
     	add x1, x9, 10
     	add x2,x10, 20
     	mov x3, 5
     	mov x4, 10
     	bl cuadrado
+
     	add x1, x9, 15
     	add x2,x10, 20
     	mov x3, 5
@@ -136,4 +141,3 @@
     	ldr x30, [sp, 56]
     	add sp, sp, 64
     	br x30
-
