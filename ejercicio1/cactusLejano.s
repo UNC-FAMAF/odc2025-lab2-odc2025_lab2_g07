@@ -14,10 +14,13 @@
 		stur x1,[sp,8]
 		stur x0,[sp,0]
 
-		mov x9, x1
-		mov x10,x2
-		mov x0, x5
+		mov x9, 35
+		mov x10,210
 
+
+		mov x1, 35
+		mov x2, 210
+		mov x0, x12
 		mov x3,60
 		mov x4,20
 		bl cuadrado
