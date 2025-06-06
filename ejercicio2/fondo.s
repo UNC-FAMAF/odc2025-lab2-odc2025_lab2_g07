@@ -8,6 +8,7 @@
 	// COLOR PARTE SUPERIOR CIELO 0x101030 
 	.globl fondo
 
+
 	//---------------- DESIERTO ------------------------------------
 
 desierto:						// Esta rutina dibuja el desierto de fondo del color x5
@@ -17,7 +18,10 @@ desierto:						// Esta rutina dibuja el desierto de fondo del color x5
 	str x2, [sp, 16]			// ..
 	str x1, [sp, 8]				// ..
 	str x0, [sp, 0]				// ..
-
+	
+	movz x0, #0xA8C0, lsl #0       
+	movk x0, #0x000A, lsl #16
+	add x0, x20, x0                //Pongo el frame buffer debajo del horizonte
 	mov x10, x5        //Defino color Arena
 
 	mov x2, SCREEN_HEIGH         // Y Size
