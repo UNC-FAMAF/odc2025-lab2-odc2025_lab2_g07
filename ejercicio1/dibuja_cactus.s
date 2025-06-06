@@ -36,7 +36,8 @@
 		add x1, x7,0
 		add x2, x8,0
 		mov x5,xzr
-		mov x5, x12
+		movz x5, 0x0, lsl 16
+		movk x5, 0x0, lsl 0
 		bl espinas
 
 		ldr x1, [sp, 0]
