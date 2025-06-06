@@ -2,23 +2,23 @@
 	.equ SCREEN_HEIGH,		480
 	.equ FRANJA,     		10             
 	.equ ALTO_CIELO,		270
-	.equ BITS_PER_PIXEL,  	32
-	.equ GPIO_BASE,      0x3f200000
-	.equ GPIO_GPFSEL0,   0x00
-	.equ GPIO_GPLEV0,    0x34
 
-	.globl main
-//COLOR ARENA B09C66
-
-main:
-	// x0 contiene la direccion base del framebuffer
-
- 	mov x20, x0	         // Guarda la dirección base del framebuffer en x20
+	// COLORES RECOMENDADOS
+	// COLOR ARENA 0xB09C66
+	// COLOR PARTE SUPERIOR CIELO 0x101030 
+	.globl fondo
 
 	//---------------- DESIERTO ------------------------------------
-	
-	movz x10, 0xB0, lsl 16        //Defino color Arena
-	movk x10, 0x9C66, lsl 00      //Defino color Arena
+
+desierto:						// Esta rutina dibuja el desierto de fondo del color x5
+	sub sp, sp, 40				// Reserva lugar en el stack
+	str x30, [sp, 32]			// Guarda la direccion desde donde se llamo a la rutina
+	str x10, [sp, 24]			// Guarda los valores de los registros que voy a utilizar para no perder datos
+	str x2, [sp, 16]			// ..
+	str x1, [sp, 8]				// ..
+	str x0, [sp, 0]				// ..
+
+	mov x10, x5        //Defino color Arena
 
 	mov x2, SCREEN_HEIGH         // Y Size
 loop_1:
@@ -30,13 +30,36 @@ loop_0:
 	cbnz x1,loop_0  // Si no terminó la fila, salto
 	sub x2,x2,1	   // Decrementar contador Y
 	cbnz x2,loop_1  // Si no es la última fila, salto
-  
+	
+	ldr x30, [sp, 32]			// Recupera la direccion desde donde se llamo a la rutina
+	ldr x10, [sp, 24]			// Recupera los valores de entrada de los registros
+	ldr x2, [sp, 16]			// ..
+	ldr x1, [sp, 8]				// ..
+	ldr x0, [sp, 0]				// ..
+	add sp, sp, 32				// Libera el stack
+	br x30						// Salta a la direccion desde donde se llamo a la rutina
 
 	//---------------- CIELO ------------------------------------
+
+cielo:							// Esta rutina dibuja el cielo de fondo con un degradado a partir del color x6
+	sub sp, sp, 104				// Reserva lugar en el stack
+	str x30, [sp, 96]			// Guarda la direccion desde donde se llamo a la rutina
+	str x16, [sp, 88]			// Guarda los valores de los registros que voy a utilizar para no perder datos
+	str x14, [sp, 80]			// ..
+	str x12, [sp, 72]			// ..
+	str x11, [sp, 64]			// ..
+	str x10, [sp, 56]			// ..
+	str x6, [sp, 48]			// ..
+	str x5, [sp, 40]			// ..
+	str x4, [sp, 32]			// ..
+	str x3, [sp, 24]			// ..
+	str x2, [sp, 16]			// ..
+	str x1, [sp, 8]				// ..
+	str x0, [sp, 0]				// ..
+	
 	mov x0, x20                  //Tomo de vuelta la direccion de inicio del buffer
 
-	movz x10, 0x10, lsl 16      //Defino color para parte superior cielo
-	movk x10, 0x1030, lsl 00    //Defino color para parte superior cielo
+	mov x10, x6      			//Defino color para parte superior cielo
 
 	mov x2, FRANJA              //Contador para alto de franja
 	mov x3, ALTO_CIELO			//Contador para saber donde termina el cielo
@@ -57,7 +80,7 @@ loop0:
 
 	sub x2,x2,1        // Decrementar contador alto franja porque termino la fila anterior
 	sub x3,x3,1       // Decrementar contador alto cielo porque termino la fila anterior
-	cbz x3, InfLoop  //Si fue la ultima linea de cielo, me voy.
+	cbz x3, end  //Si fue la ultima linea de cielo, me voy.
 	cbnz x2,loop1  	//Si no es la última fila de la franja, salto (sigo pintando) pero antes reestablezco el contador de x
 	
 	//Si termine la franja modifico el color
@@ -84,8 +107,36 @@ loop0:
 	mov x14, #2  //Si ya hice 3 franjas del mismo tamaño, reestablezco el contador
 	add x16, x16, #15 //Agrego 15 al tamaño de la franja
 	cbnz x3, loop2  //Si no es la ultima fila del cielo, ya cambie el color y tamaño, sigo pintando (salto) pero antes reestablezco los contadores x y de Altofranja
+end:
 
-	//------------------Infinite Loop-----------------------------------
+	ldr x30, [sp, 96]			// Recupera la direccion desde donde se llamo a la rutina
+	ldr x16, [sp, 88]			// Recupera los valores de entrada de los registros
+	ldr x14, [sp, 80]			// ..
+	ldr x12, [sp, 72]			// ..
+	ldr x11, [sp, 64]			// ..
+	ldr x10, [sp, 56]			// ..
+	ldr x6, [sp, 48]			// ..
+	ldr x5, [sp, 40]			// ..
+	ldr x4, [sp, 32]			// ..
+	ldr x3, [sp, 24]			// ..
+	ldr x2, [sp, 16]			// ..
+	ldr x1, [sp, 8]				// ..
+	ldr x0, [sp, 0]				// ..
+	add sp, sp, 104				// Libera el stack
+	br x30						// Salta a la direccion desde donde se llamo a la rutina
 
-InfLoop:
-	b InfLoop
+fondo:							// Esta rutina dibuja el fondo del dibujo a partir de los colores x5 (arena), x6 (cielo)
+
+	sub sp, sp, 8				// Reserva lugar en el stack
+	str x30, [sp, 0]			// Guarda la direccion desde donde se llamo a la rutina
+
+	bl desierto					// Dibuja el desierto
+
+	bl detalle_arena			// Dibuja los detalles en la arena
+
+	bl cielo					// Dibuja el cielo
+
+	ldr x30, [sp, 0]			// Recupera la direccion desde donde se llamo a la rutina
+	add sp, sp, 8				// Libera el stack
+	br x30						// Salta a la direccion desde donde se llamo a la rutina
+

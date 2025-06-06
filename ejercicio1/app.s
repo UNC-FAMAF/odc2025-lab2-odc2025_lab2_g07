@@ -12,42 +12,42 @@ main:
 	// x0 contiene la direccion base del framebuffer
  	mov x20, x0	// Guarda la dirección base del framebuffer en x20
 	//---------------- CODE HERE ------------------------------------
+	movz x5, 0xb0, lsl 16			// Defino el color del desierto
+	movk x5, 0x9c66, lsl 0			// ..
 
-	movz x10, 0xC7, lsl 16
-	movk x10, 0x1585, lsl 00
+	movz x6, 0x10, lsl 16			// Defino el color del cielo
+	movk x6, 0x1030, lsl 0			// ..
 
-	mov x2, SCREEN_HEIGH         // Y Size
-loop1:
-	mov x1, SCREEN_WIDTH         // X Size
-loop0:
-	stur w10,[x0]  // Colorear el pixel N
-	add x0,x0,4	   // Siguiente pixel
-	sub x1,x1,1	   // Decrementar contador X
-	cbnz x1,loop0  // Si no terminó la fila, salto
-	sub x2,x2,1	   // Decrementar contador Y
-	cbnz x2,loop1  // Si no es la última fila, salto
+	movz x7, 0x8a, lsl 16			// Defino el color del cartel
+	movk x7, 0x6642, lsl 0			// ..
 
-	// Ejemplo de uso de gpios
-	mov x9, GPIO_BASE
+	movz x8, 0xc8, lsl 16			// Defino el color de la nube
+	movk x8, 0xcbca, lsl 0			// ..
 
-	// Atención: se utilizan registros w porque la documentación de broadcom
-	// indica que los registros que estamos leyendo y escribiendo son de 32 bits
+	movz x9, 0x82, lsl 16			// Defino el color de las estrellas
+	movk x9, 0xa1b1, lsl 0			// ..
 
-	// Setea gpios 0 - 9 como lectura
-	str wzr, [x9, GPIO_GPFSEL0]
+	movz x10, 0x14, lsl 16			// Defino el color del cactus cercano
+	movk x10, 0x6f15, lsl 00		// ..
 
-	// Lee el estado de los GPIO 0 - 31
-	ldr w10, [x9, GPIO_GPLEV0]
+	movz x11, 0x16, lsl 16			// Defino el color de los relieves del cactus cercano
+	movk x11, 0x3d13, lsl 00		// ..
+	
+	movz x12, 0x18, lsl 16			// Defino el color del cactus lejano
+	movk x12, 0x3016, lsl 00		// ..	
 
-	// And bit a bit mantiene el resultado del bit 2 en w10
-	and w11, w10, 0b10
+	mov x1, 450			// Defino la posicion inicial de la nube
+	mov x2, 50			// ..
 
-	// w11 será 1 si había un 1 en la posición 2 de w10, si no será 0
-	// efectivamente, su valor representará si GPIO 2 está activo
-	lsr w11, w11, 1
+	mov x3, 100			// Defino la posicion inicial de la nube2
+	mov x4, 200			// ..
 
-	//---------------------------------------------------------------
-	// Infinite Loop
-
+	bl fondo				// Dibuja el fondo
+	bl estrellas			// Dibuja las estrellas
+	bl cartel				// Dibuja el carte de OdC 2025
+	bl nube					// Dibuja la nueve es su nueva posicion
+	bl nube2
+	bl dibuja_cactus
+	bl cactus2
 InfLoop:
 	b InfLoop
