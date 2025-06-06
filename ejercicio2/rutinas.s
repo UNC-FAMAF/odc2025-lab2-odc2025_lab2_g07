@@ -6,6 +6,7 @@
 .globl cartel
 .globl detalle_arena
 .globl nube
+.globl nube2
 
 // COLORES RECOMENDADOS
 // COLOR ARENA 0xB09C66
