@@ -18,8 +18,8 @@
 pixel:                      // Esta rutina pinta de color x0 el pixel que se encuentra en la posicion (x,y) con x=x1, y=x2
     
     sub sp, sp, 16          // Reserva lugar en el stack
-    str x30, [sp, 8]        // Guarda la direccion desde donde se llamo a la rutina
-    str x9, [sp, 0]         // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x30, [sp, 8]        // Guarda la direccion desde donde se llamo a la rutina
+    stur x9, [sp, 0]         // Guarda los valores de los registros que voy a utilizar para no perder datos
 
     mov x9, 640             // X9 = 640 (Obtendre la direccion del pixel a partir de x e y con el metodo visto en clase)
     mul x9, x2, x9          // X9 = y*640
@@ -28,8 +28,8 @@ pixel:                      // Esta rutina pinta de color x0 el pixel que se enc
     add x9, x20, x9         // X9 = Direccion de inicio + 4*(x+(y*640))
     stur w0, [x9]           // Pinta el pixel (x,y) con el color almacenado en x0
 
-    ldr x9, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x30, [sp, 8]        // Recupera la direccion desde donde se llamo a la rutina
+    ldur x9, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x30, [sp, 8]        // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 16          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
@@ -37,9 +37,9 @@ pixel:                      // Esta rutina pinta de color x0 el pixel que se enc
 fila:                       // Esta rutina pinta una fila de color x0, de ancho x3 > 0, comenzando en la posicion (x1, x2)
     
     sub sp, sp, 24          // Reserva lugar en el stack
-    str x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
-    str x3, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x1, [sp, 0]         // ..
+    stur x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x3, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x1, [sp, 0]         // ..
 
 xloop:
     bl pixel                // Pinta un pixel en la posicion (x1, x2) actual
@@ -47,9 +47,9 @@ xloop:
     sub x3, x3, 1           // Decrementa el contador del ancho sin pintar
     cbnz x3, xloop          // Si todavia hay ancho sin pintar continuo pintando
 
-    ldr x1, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x3, [sp, 8]         // ..
-    ldr x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x1, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x3, [sp, 8]         // ..
+    ldur x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 24          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
@@ -57,9 +57,9 @@ xloop:
 cuadrado:                   // Esta rutina pinta un cuadrado de color x0, de ancho x3 > 0 y alto x4 > 0 a partir de la posicion (x1, x2) (cuadrado de x1+x3 * x2+x4)
     
     sub sp, sp, 24          // Reserva lugar en el stack
-    str x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
-    str x4, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x2, [sp, 0]         // ..
+    stur x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x4, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x2, [sp, 0]         // ..
 
 yloop:
     bl fila                 // Pinta una fila de ancho x3
@@ -67,18 +67,18 @@ yloop:
     sub x4, x4, 1           // Decrementa el contador del alto sin pintar
     cbnz x4, yloop          // Si todavia hay alto sin pintar continuo pintando
 
-    ldr x2, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x4, [sp, 8]         // ..
-    ldr x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x2, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x4, [sp, 8]         // ..
+    ldur x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 24          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
 
 triangulo_inf:              // Esta rutina dibuja un triangulo rectangulo de color x0, de ancho y alto x3 > 0 a partir de la posicion (x1, x2) hacia abajo
     sub sp, sp, 24          // Reserva lugar en el stack
-    str x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
-    str x3, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x2, [sp, 0]         // ..
+    stur x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x3, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x2, [sp, 0]         // ..
 
 tiloop:
     bl fila                 // Pinta una fila de ancho x3 (la forma en la que dibuja consiste en apilar filas de distintos anchos)
@@ -86,17 +86,17 @@ tiloop:
     sub x3, x3, 1           // Decrementa el contador del alto sin pintar
     cbnz x3, tiloop         // Si todavia hay alto sin pintar continuo pintando
 
-    ldr x2, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x3, [sp, 8]         // ..
-    ldr x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x2, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x3, [sp, 8]         // ..
+    ldur x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 24          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
 triangulo_sup:              // Esta rutina dibuja un triangulo rectangulo de color x0, de ancho y alto x3 > 0 a partir de la posicion (x1, x2) hacia arriba
     sub sp, sp, 24          // Reserva lugar en el stack
-    str x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
-    str x3, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x2, [sp, 0]         // ..
+    stur x30, [sp, 16]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x3, [sp, 8]         // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x2, [sp, 0]         // ..
 
 tsloop:
     bl fila                 // Pinta una fila de ancho x3 (la forma en la que dibuja consiste en apilar filas de distintos anchos) 
@@ -104,9 +104,9 @@ tsloop:
     sub x3, x3, 1           // Decrementa el contador del alto sin pintar
     cbnz x3, tsloop         // Si todavia hay alto sin pintar continuo pintando
 
-    ldr x2, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x3, [sp, 8]         // ..
-    ldr x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x2, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x3, [sp, 8]         // ..
+    ldur x30, [sp, 16]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 24          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
@@ -116,12 +116,12 @@ tsloop:
 detalle_arena:              // Esta rutina dibuja unos detalles en la arena a partir del color x5
 
     sub sp, sp, 48          // Reserva lugar en el stack
-    str x30, [sp, 40]       // Guarda la direccion desde donde se llamo a la rutina
-    str x4, [sp, 32]        // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x3, [sp, 24]        // ..
-    str x2, [sp, 16]        // ..
-    str x1, [sp, 8]         // ..
-    str x0, [sp, 0]         // ..
+    stur x30, [sp, 40]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x4, [sp, 32]        // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x3, [sp, 24]        // ..
+    stur x2, [sp, 16]        // ..
+    stur x1, [sp, 8]         // ..
+    stur x0, [sp, 0]         // ..
 
     mov x0, x5              // Setea el color en x0 para modificarlo
 
@@ -189,12 +189,12 @@ xloop_out01:
 yloop_out01:
 
 
-    ldr x0, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x1, [sp, 8]         // ..
-    ldr x2, [sp, 16]        // ..
-    ldr x3, [sp, 24]        // ..
-    ldr x4, [sp, 32]        // ..
-    ldr x30, [sp, 40]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x0, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x1, [sp, 8]         // ..
+    ldur x2, [sp, 16]        // ..
+    ldur x3, [sp, 24]        // ..
+    ldur x4, [sp, 32]        // ..
+    ldur x30, [sp, 40]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
@@ -202,15 +202,15 @@ yloop_out01:
 texto:                              // Esta rutina dibuja el texto "OdC 2025" a partir de una posicion (x1, x2) sobre el color de fondo x0
     
     sub sp, sp, 72                  // Reserva lugar en el stack
-    str x30, [sp, 64]               // Guarda la direccion desde donde se llamo a la rutina
-    str x11, [sp, 56]               // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x10, [sp, 48]               // ..
-    str x9, [sp, 40]                // ..
-    str x4, [sp, 32]                // ..
-    str x3, [sp, 24]                // ..
-    str x2, [sp, 16]                // ..
-    str x1, [sp, 8]                 // ..
-    str x0, [sp, 0]                 // ..
+    stur x30, [sp, 64]               // Guarda la direccion desde donde se llamo a la rutina
+    stur x11, [sp, 56]               // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x10, [sp, 48]               // ..
+    stur x9, [sp, 40]                // ..
+    stur x4, [sp, 32]                // ..
+    stur x3, [sp, 24]                // ..
+    stur x2, [sp, 16]                // ..
+    stur x1, [sp, 8]                 // ..
+    stur x0, [sp, 0]                 // ..
 
     mov x11, x0                     // Guarda el color de fondo del lugar donde va a estar el texto
 
@@ -315,15 +315,15 @@ texto:                              // Esta rutina dibuja el texto "OdC 2025" a 
     mov x4, 11                  // ..
     bl cuadrado                 // ..
 
-    ldr x0, [sp, 0]             // Recupera los valores de entrada de los registros
-    ldr x1, [sp, 8]             // ..
-    ldr x2, [sp, 16]            // ..
-    ldr x3, [sp, 24]            // ..
-    ldr x4, [sp, 32]            // ..
-    ldr x9, [sp, 40]            // ..
-    ldr x10, [sp, 48]           // ..
-    ldr x11, [sp, 56]           // ..
-    ldr x30, [sp, 64]           // Recupera la direccion desde donde se llamo a la rutina
+    ldur x0, [sp, 0]             // Recupera los valores de entrada de los registros
+    ldur x1, [sp, 8]             // ..
+    ldur x2, [sp, 16]            // ..
+    ldur x3, [sp, 24]            // ..
+    ldur x4, [sp, 32]            // ..
+    ldur x9, [sp, 40]            // ..
+    ldur x10, [sp, 48]           // ..
+    ldur x11, [sp, 56]           // ..
+    ldur x30, [sp, 64]           // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 72              // Libera el stack
     br x30                      // Salta a la direccion desde donde se llamo a la rutina
 
@@ -333,15 +333,15 @@ texto:                              // Esta rutina dibuja el texto "OdC 2025" a 
 cartel:                         // Esta Rutina dibuja un cartel que dice "OdC 2025" de color x7
     
     sub sp, sp, 72              // Reserva lugar en el stack
-    str x30, [sp, 64]           // Guarda la direccion desde donde se llamo a la rutina
-    str x7, [sp, 56]            // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x6, [sp, 48]            // ..
-    str x5, [sp, 40]            // ..
-    str x4, [sp, 32]            // ..
-    str x3, [sp, 24]            // ..
-    str x2, [sp, 16]            // ..
-    str x1, [sp, 8]             // ..
-    str x0, [sp, 0]             // ..
+    stur x30, [sp, 64]           // Guarda la direccion desde donde se llamo a la rutina
+    stur x7, [sp, 56]            // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x6, [sp, 48]            // ..
+    stur x5, [sp, 40]            // ..
+    stur x4, [sp, 32]            // ..
+    stur x3, [sp, 24]            // ..
+    stur x2, [sp, 16]            // ..
+    stur x1, [sp, 8]             // ..
+    stur x0, [sp, 0]             // ..
     
     mov x5, x7                  // Guarda el color de entrada del cartel
 
@@ -393,15 +393,15 @@ cartel:                         // Esta Rutina dibuja un cartel que dice "OdC 20
 
     bl triangulo_sup        // Dibuja la parte superior de la flecha o direccion
 
-    ldr x0, [sp, 0]         // Recupera los valores de entrada de los registros     
-    ldr x1, [sp, 8]         // ..
-    ldr x2, [sp, 16]        // ..
-    ldr x3, [sp, 24]        // ..
-    ldr x4, [sp, 32]        // ..
-    ldr x5, [sp, 40]        // ..
-    ldr x6, [sp, 48]        // ..
-    ldr x7, [sp, 56]        // ..
-    ldr x30, [sp, 64]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x0, [sp, 0]         // Recupera los valores de entrada de los registros     
+    ldur x1, [sp, 8]         // ..
+    ldur x2, [sp, 16]        // ..
+    ldur x3, [sp, 24]        // ..
+    ldur x4, [sp, 32]        // ..
+    ldur x5, [sp, 40]        // ..
+    ldur x6, [sp, 48]        // ..
+    ldur x7, [sp, 56]        // ..
+    ldur x30, [sp, 64]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 72          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
@@ -409,14 +409,14 @@ cartel:                         // Esta Rutina dibuja un cartel que dice "OdC 20
 nube:                       // Esta rutina dibuja una nube de color x8, a partir de la posicion (x1, x2)
     
     sub sp, sp, 64          // Reserva lugar en el stack
-    str x30, [sp, 56]       // Guarda la direccion desde donde se llamo a la rutina
-    str x10, [sp, 48]       // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x9, [sp, 40]        // ..
-    str x4, [sp, 32]        // ..
-    str x3, [sp, 24]        // ..
-    str x2, [sp, 16]        // ..
-    str x1, [sp, 8]         // ..
-    str x0, [sp, 0]         // ..
+    stur x30, [sp, 56]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x10, [sp, 48]       // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x9, [sp, 40]        // ..
+    stur x4, [sp, 32]        // ..
+    stur x3, [sp, 24]        // ..
+    stur x2, [sp, 16]        // ..
+    stur x1, [sp, 8]         // ..
+    stur x0, [sp, 0]         // ..
 
     mov x9, x1              // Guarda en valor del eje x desde donde se pintara la nube
     mov x10, x2             // Guarda en valor del eje y desde donde se pintara la nube
@@ -438,28 +438,28 @@ nube:                       // Esta rutina dibuja una nube de color x8, a partir
     mov x4, 5               // ..
     bl cuadrado             // ..
 
-    ldr x0, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x1, [sp, 8]         // ..
-    ldr x2, [sp, 16]        // ..
-    ldr x3, [sp, 24]        // ..
-    ldr x4, [sp, 32]        // ..
-    ldr x9, [sp, 40]        // ..
-    ldr x10, [sp, 48]       // ..
-    ldr x30, [sp, 56]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x0, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x1, [sp, 8]         // ..
+    ldur x2, [sp, 16]        // ..
+    ldur x3, [sp, 24]        // ..
+    ldur x4, [sp, 32]        // ..
+    ldur x9, [sp, 40]        // ..
+    ldur x10, [sp, 48]       // ..
+    ldur x30, [sp, 56]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 64          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
 nube2:                       // Esta rutina dibuja una nube de color x8, a partir de la posicion (x3, x4)
     
     sub sp, sp, 64          // Reserva lugar en el stack
-    str x30, [sp, 56]       // Guarda la direccion desde donde se llamo a la rutina
-    str x10, [sp, 48]       // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x9, [sp, 40]        // ..
-    str x4, [sp, 32]        // ..
-    str x3, [sp, 24]        // ..
-    str x2, [sp, 16]        // ..
-    str x1, [sp, 8]         // ..
-    str x0, [sp, 0]         // ..
+    stur x30, [sp, 56]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x10, [sp, 48]       // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x9, [sp, 40]        // ..
+    stur x4, [sp, 32]        // ..
+    stur x3, [sp, 24]        // ..
+    stur x2, [sp, 16]        // ..
+    stur x1, [sp, 8]         // ..
+    stur x0, [sp, 0]         // ..
 
     mov x9, x3              // Guarda en valor del eje x desde donde se pintara la nube
     mov x10, x4             // Guarda en valor del eje y desde donde se pintara la nube
@@ -483,14 +483,14 @@ nube2:                       // Esta rutina dibuja una nube de color x8, a parti
     mov x4, 5               // ..
     bl cuadrado             // ..
 
-    ldr x0, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x1, [sp, 8]         // ..
-    ldr x2, [sp, 16]        // ..
-    ldr x3, [sp, 24]        // ..
-    ldr x4, [sp, 32]        // ..
-    ldr x9, [sp, 40]        // ..
-    ldr x10, [sp, 48]       // ..
-    ldr x30, [sp, 56]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x0, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x1, [sp, 8]         // ..
+    ldur x2, [sp, 16]        // ..
+    ldur x3, [sp, 24]        // ..
+    ldur x4, [sp, 32]        // ..
+    ldur x9, [sp, 40]        // ..
+    ldur x10, [sp, 48]       // ..
+    ldur x30, [sp, 56]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 64          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
