@@ -93,12 +93,12 @@ b skip
 oscurecer_desierto:
 
     sub sp, sp, 48		// Reserva lugar en el stack
-    str x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
-    str x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x16, [sp, 24]		// ..
-    str x15, [sp, 16]		// ..
-    str x14, [sp, 8]		// ..
-    str x13, [sp, 0]		// ..
+    stur x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
+    stur x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x16, [sp, 24]		// ..
+    stur x15, [sp, 16]		// ..
+    stur x14, [sp, 8]		// ..
+    stur x13, [sp, 0]		// ..
 
     mov x13, 95			// Esto es porque no deja multiplicar/dividir literales
     mov x14, 100		// Voy a multiplicar por x11 y dividir por x12, o sea multiplicar por 0.95
@@ -121,24 +121,24 @@ oscurecer_desierto:
     orr x5, x17, x16		// Copio red y green
     orr x5, x5, x15		// Copio blue
 
-    ldr x13, [sp, 0]		// Recupera los valores de entrada de los registros
-    ldr x14, [sp, 8]		// ..
-    ldr x15, [sp, 16]		// ..
-    ldr x16, [sp, 24]		// ..
-    ldr x17, [sp, 32]		// ..
-    ldr x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
+    ldur x13, [sp, 0]		// Recupera los valores de entrada de los registros
+    ldur x14, [sp, 8]		// ..
+    ldur x15, [sp, 16]		// ..
+    ldur x16, [sp, 24]		// ..
+    ldur x17, [sp, 32]		// ..
+    ldur x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          	// Libera el stack
     br x30                  	// Salta a la direccion desde donde se llamo a la rutina
 
 oscurecer_cielo:
 
     sub sp, sp, 48		// Reserva lugar en el stack
-    str x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
-    str x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x16, [sp, 24]		// ..
-    str x15, [sp, 16]		// ..
-    str x14, [sp, 8]		// ..
-    str x13, [sp, 0]		// ..
+    stur x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
+    stur x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x16, [sp, 24]		// ..
+    stur x15, [sp, 16]		// ..
+    stur x14, [sp, 8]		// ..
+    stur x13, [sp, 0]		// ..
 
     mov x13, 9999		// Esto es porque no deja multiplicar/dividir literales
     mov x14, 10000		// Voy a multiplicar por x11 y dividir por x12, o sea multiplicar por 0.9999
@@ -161,24 +161,24 @@ oscurecer_cielo:
     orr x6, x17, x16		// Copio red y green
     orr x6, x6, x15		// Copio blue
 
-    ldr x13, [sp, 0]		// Recupera los valores de entrada de los registros
-    ldr x14, [sp, 8]		// ..
-    ldr x15, [sp, 16]		// ..
-    ldr x16, [sp, 24]		// ..
-    ldr x17, [sp, 32]		// ..
-    ldr x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
+    ldur x13, [sp, 0]		// Recupera los valores de entrada de los registros
+    ldur x14, [sp, 8]		// ..
+    ldur x15, [sp, 16]		// ..
+    ldur x16, [sp, 24]		// ..
+    ldur x17, [sp, 32]		// ..
+    ldur x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          	// Libera el stack
     br x30                  	// Salta a la direccion desde donde se llamo a la rutina
 
 oscurecer_cartel:
 
     sub sp, sp, 48		// Reserva lugar en el stack
-    str x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
-    str x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x16, [sp, 24]		// ..
-    str x15, [sp, 16]		// ..
-    str x14, [sp, 8]		// ..
-    str x13, [sp, 0]		// ..
+    stur x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
+    stur x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x16, [sp, 24]		// ..
+    stur x15, [sp, 16]		// ..
+    stur x14, [sp, 8]		// ..
+    stur x13, [sp, 0]		// ..
 
     mov x13, 95			// Esto es porque no deja multiplicar/dividir literales
     mov x14, 100		// Voy a multiplicar por x11 y dividir por x12, o sea multiplicar por 0.95
@@ -201,24 +201,24 @@ oscurecer_cartel:
     orr x7, x17, x16		// Copio red y green
     orr x7, x7, x15		// Copio blue
 
-    ldr x13, [sp, 0]		// Recupera los valores de entrada de los registros
-    ldr x14, [sp, 8]		// ..
-    ldr x15, [sp, 16]		// ..
-    ldr x16, [sp, 24]		// ..
-    ldr x17, [sp, 32]		// ..
-    ldr x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
+    ldur x13, [sp, 0]		// Recupera los valores de entrada de los registros
+    ldur x14, [sp, 8]		// ..
+    ldur x15, [sp, 16]		// ..
+    ldur x16, [sp, 24]		// ..
+    ldur x17, [sp, 32]		// ..
+    ldur x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          	// Libera el stack
     br x30                  	// Salta a la direccion desde donde se llamo a la rutina
 
 oscurecer_nubes:
 
     sub sp, sp, 48		// Reserva lugar en el stack
-    str x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
-    str x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x16, [sp, 24]		// ..
-    str x15, [sp, 16]		// ..
-    str x14, [sp, 8]		// ..
-    str x13, [sp, 0]		// ..
+    stur x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
+    stur x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x16, [sp, 24]		// ..
+    stur x15, [sp, 16]		// ..
+    stur x14, [sp, 8]		// ..
+    stur x13, [sp, 0]		// ..
 
     mov x13, 95			// Esto es porque no deja multiplicar/dividir literales
     mov x14, 100		// Voy a multiplicar por x11 y dividir por x12, o sea multiplicar por 0.99
@@ -241,24 +241,24 @@ oscurecer_nubes:
     orr x8, x17, x16		// Copio red y green
     orr x8, x8, x15		// Copio blue
 
-    ldr x13, [sp, 0]		// Recupera los valores de entrada de los registros
-    ldr x14, [sp, 8]		// ..
-    ldr x15, [sp, 16]		// ..
-    ldr x16, [sp, 24]		// ..
-    ldr x17, [sp, 32]		// ..
-    ldr x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
+    ldur x13, [sp, 0]		// Recupera los valores de entrada de los registros
+    ldur x14, [sp, 8]		// ..
+    ldur x15, [sp, 16]		// ..
+    ldur x16, [sp, 24]		// ..
+    ldur x17, [sp, 32]		// ..
+    ldur x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          	// Libera el stack
     br x30                  	// Salta a la direccion desde donde se llamo a la rutina
 
 oscurecer_cactus1:
 
     sub sp, sp, 48		// Reserva lugar en el stack
-    str x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
-    str x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x16, [sp, 24]		// ..
-    str x15, [sp, 16]		// ..
-    str x14, [sp, 8]		// ..
-    str x13, [sp, 0]		// ..
+    stur x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
+    stur x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x16, [sp, 24]		// ..
+    stur x15, [sp, 16]		// ..
+    stur x14, [sp, 8]		// ..
+    stur x13, [sp, 0]		// ..
 
     mov x13, 95			// Esto es porque no deja multiplicar/dividir literales
     mov x14, 100		// Voy a multiplicar por x11 y dividir por x12, o sea multiplicar por 0.95
@@ -281,24 +281,24 @@ oscurecer_cactus1:
     orr x10, x17, x16		// Copio red y green
     orr x10, x10, x15		// Copio blue
 
-    ldr x13, [sp, 0]		// Recupera los valores de entrada de los registros
-    ldr x14, [sp, 8]		// ..
-    ldr x15, [sp, 16]		// ..
-    ldr x16, [sp, 24]		// ..
-    ldr x17, [sp, 32]		// ..
-    ldr x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
+    ldur x13, [sp, 0]		// Recupera los valores de entrada de los registros
+    ldur x14, [sp, 8]		// ..
+    ldur x15, [sp, 16]		// ..
+    ldur x16, [sp, 24]		// ..
+    ldur x17, [sp, 32]		// ..
+    ldur x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          	// Libera el stack
     br x30                  	// Salta a la direccion desde donde se llamo a la rutina
 
 oscurecer_cactus1_relieves:
 
     sub sp, sp, 48		// Reserva lugar en el stack
-    str x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
-    str x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x16, [sp, 24]		// ..
-    str x15, [sp, 16]		// ..
-    str x14, [sp, 8]		// ..
-    str x13, [sp, 0]		// ..
+    stur x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
+    stur x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x16, [sp, 24]		// ..
+    stur x15, [sp, 16]		// ..
+    stur x14, [sp, 8]		// ..
+    stur x13, [sp, 0]		// ..
 
     mov x13, 95			// Esto es porque no deja multiplicar/dividir literales
     mov x14, 100		// Voy a multiplicar por x11 y dividir por x12, o sea multiplicar por 0.99
@@ -321,24 +321,24 @@ oscurecer_cactus1_relieves:
     orr x11, x17, x16		// Copio red y green
     orr x11, x11, x15		// Copio blue
 
-    ldr x13, [sp, 0]		// Recupera los valores de entrada de los registros
-    ldr x14, [sp, 8]		// ..
-    ldr x15, [sp, 16]		// ..
-    ldr x16, [sp, 24]		// ..
-    ldr x17, [sp, 32]		// ..
-    ldr x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
+    ldur x13, [sp, 0]		// Recupera los valores de entrada de los registros
+    ldur x14, [sp, 8]		// ..
+    ldur x15, [sp, 16]		// ..
+    ldur x16, [sp, 24]		// ..
+    ldur x17, [sp, 32]		// ..
+    ldur x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          	// Libera el stack
     br x30                  	// Salta a la direccion desde donde se llamo a la rutina
 
 oscurecer_cactus2:
 
     sub sp, sp, 48		// Reserva lugar en el stack
-    str x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
-    str x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x16, [sp, 24]		// ..
-    str x15, [sp, 16]		// ..
-    str x14, [sp, 8]		// ..
-    str x13, [sp, 0]		// ..
+    stur x30, [sp, 40]		// Guarda la direccion desde donde se llamo a la rutina
+    stur x17, [sp, 32]		// Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x16, [sp, 24]		// ..
+    stur x15, [sp, 16]		// ..
+    stur x14, [sp, 8]		// ..
+    stur x13, [sp, 0]		// ..
 
     mov x13, 9995		// Esto es porque no deja multiplicar/dividir literales
     mov x14, 10000		// Voy a multiplicar por x11 y dividir por x12, o sea multiplicar por 0.9995
@@ -361,12 +361,12 @@ oscurecer_cactus2:
     orr x12, x17, x16		// Copio red y green
     orr x12, x12, x15		// Copio blue
 
-    ldr x13, [sp, 0]		// Recupera los valores de entrada de los registros
-    ldr x14, [sp, 8]		// ..
-    ldr x15, [sp, 16]		// ..
-    ldr x16, [sp, 24]		// ..
-    ldr x17, [sp, 32]		// ..
-    ldr x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
+    ldur x13, [sp, 0]		// Recupera los valores de entrada de los registros
+    ldur x14, [sp, 8]		// ..
+    ldur x15, [sp, 16]		// ..
+    ldur x16, [sp, 24]		// ..
+    ldur x17, [sp, 32]		// ..
+    ldur x30, [sp, 40]       	// Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          	// Libera el stack
     br x30                  	// Salta a la direccion desde donde se llamo a la rutina
 
