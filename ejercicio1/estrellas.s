@@ -3,12 +3,12 @@
 estrellas:              // Esta rutina dibuja unas estrellas en el cielo a partir del color x9
 
     sub sp, sp, 48          // Reserva lugar en el stack
-    str x30, [sp, 40]       // Guarda la direccion desde donde se llamo a la rutina
-    str x4, [sp, 32]        // Guarda los valores de los registros que voy a utilizar para no perder datos
-    str x3, [sp, 24]        // ..
-    str x2, [sp, 16]        // ..
-    str x1, [sp, 8]         // ..
-    str x0, [sp, 0]         // ..
+    stur x30, [sp, 40]       // Guarda la direccion desde donde se llamo a la rutina
+    stur x4, [sp, 32]        // Guarda los valores de los registros que voy a utilizar para no perder datos
+    stur x3, [sp, 24]        // ..
+    stur x2, [sp, 16]        // ..
+    stur x1, [sp, 8]         // ..
+    stur x0, [sp, 0]         // ..
 
     mov x0, x9              // Setea el color en x0 para modificarlo
     
@@ -53,12 +53,12 @@ xloop_out01:
 yloop_out01:
 
 
-    ldr x0, [sp, 0]         // Recupera los valores de entrada de los registros
-    ldr x1, [sp, 8]         // ..
-    ldr x2, [sp, 16]        // ..
-    ldr x3, [sp, 24]        // ..
-    ldr x4, [sp, 32]        // ..
-    ldr x30, [sp, 40]       // Recupera la direccion desde donde se llamo a la rutina
+    ldur x0, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldur x1, [sp, 8]         // ..
+    ldur x2, [sp, 16]        // ..
+    ldur x3, [sp, 24]        // ..
+    ldur x4, [sp, 32]        // ..
+    ldur x30, [sp, 40]       // Recupera la direccion desde donde se llamo a la rutina
     add sp, sp, 48          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
