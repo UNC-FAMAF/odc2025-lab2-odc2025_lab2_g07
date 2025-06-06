@@ -448,4 +448,49 @@ nube:                       // Esta rutina dibuja una nube de color x8, a partir
     add sp, sp, 64          // Libera el stack
     br x30                  // Salta a la direccion desde donde se llamo a la rutina
 
+nube2:                       // Esta rutina dibuja una nube de color x8, a partir de la posicion (x3, x4)
+    
+    sub sp, sp, 64          // Reserva lugar en el stack
+    str x30, [sp, 56]       // Guarda la direccion desde donde se llamo a la rutina
+    str x10, [sp, 48]       // Guarda los valores de los registros que voy a utilizar para no perder datos
+    str x9, [sp, 40]        // ..
+    str x4, [sp, 32]        // ..
+    str x3, [sp, 24]        // ..
+    str x2, [sp, 16]        // ..
+    str x1, [sp, 8]         // ..
+    str x0, [sp, 0]         // ..
+
+    mov x9, x3              // Guarda en valor del eje x desde donde se pintara la nube
+    mov x10, x4             // Guarda en valor del eje y desde donde se pintara la nube
+    mov x0, x8              // Setea en x0 el color que utilizara para los rectangulos que dan forma a la nube
+
+    mov x1, x9
+    mov x2, x10
+    mov x3, 100             // Pinta 3 rectangulos de color x0 a partir de la direccion (x, y) que daran forma a la nube
+    mov x4, 40              // ..
+    bl cuadrado             // ..
+
+    add x1, x9, 15          // ..
+    sub x2, x10, 10         // ..
+    mov x3, 70              // ..
+    mov x4, 55              // ..
+    bl cuadrado             // ..
+
+    add x1, x9, 35          // ..
+    sub x2, x10, 15         // ..
+    mov x3, 30              // ..
+    mov x4, 5               // ..
+    bl cuadrado             // ..
+
+    ldr x0, [sp, 0]         // Recupera los valores de entrada de los registros
+    ldr x1, [sp, 8]         // ..
+    ldr x2, [sp, 16]        // ..
+    ldr x3, [sp, 24]        // ..
+    ldr x4, [sp, 32]        // ..
+    ldr x9, [sp, 40]        // ..
+    ldr x10, [sp, 48]       // ..
+    ldr x30, [sp, 56]       // Recupera la direccion desde donde se llamo a la rutina
+    add sp, sp, 64          // Libera el stack
+    br x30                  // Salta a la direccion desde donde se llamo a la rutina
+
 
