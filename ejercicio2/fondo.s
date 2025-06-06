@@ -13,11 +13,11 @@
 
 desierto:						// Esta rutina dibuja el desierto de fondo del color x5
 	sub sp, sp, 40				// Reserva lugar en el stack
-	str x30, [sp, 32]			// Guarda la direccion desde donde se llamo a la rutina
-	str x10, [sp, 24]			// Guarda los valores de los registros que voy a utilizar para no perder datos
-	str x2, [sp, 16]			// ..
-	str x1, [sp, 8]				// ..
-	str x0, [sp, 0]				// ..
+	stur x30, [sp, 32]			// Guarda la direccion desde donde se llamo a la rutina
+	stur x10, [sp, 24]			// Guarda los valores de los registros que voy a utilizar para no perder datos
+	stur x2, [sp, 16]			// ..
+	stur x1, [sp, 8]				// ..
+	stur x0, [sp, 0]				// ..
 	
 	movz x0, #0xA8C0, lsl #0       
 	movk x0, #0x000A, lsl #16
@@ -35,11 +35,11 @@ loop_0:
 	sub x2,x2,1	   // Decrementar contador Y
 	cbnz x2,loop_1  // Si no es la última fila, salto
 	
-	ldr x30, [sp, 32]			// Recupera la direccion desde donde se llamo a la rutina
-	ldr x10, [sp, 24]			// Recupera los valores de entrada de los registros
-	ldr x2, [sp, 16]			// ..
-	ldr x1, [sp, 8]				// ..
-	ldr x0, [sp, 0]				// ..
+	ldur x30, [sp, 32]			// Recupera la direccion desde donde se llamo a la rutina
+	ldur x10, [sp, 24]			// Recupera los valores de entrada de los registros
+	ldur x2, [sp, 16]			// ..
+	ldur x1, [sp, 8]				// ..
+	ldur x0, [sp, 0]				// ..
 	add sp, sp, 32				// Libera el stack
 	br x30						// Salta a la direccion desde donde se llamo a la rutina
 
@@ -47,19 +47,19 @@ loop_0:
 
 cielo:							// Esta rutina dibuja el cielo de fondo con un degradado a partir del color x6
 	sub sp, sp, 104				// Reserva lugar en el stack
-	str x30, [sp, 96]			// Guarda la direccion desde donde se llamo a la rutina
-	str x16, [sp, 88]			// Guarda los valores de los registros que voy a utilizar para no perder datos
-	str x14, [sp, 80]			// ..
-	str x12, [sp, 72]			// ..
-	str x11, [sp, 64]			// ..
-	str x10, [sp, 56]			// ..
-	str x6, [sp, 48]			// ..
-	str x5, [sp, 40]			// ..
-	str x4, [sp, 32]			// ..
-	str x3, [sp, 24]			// ..
-	str x2, [sp, 16]			// ..
-	str x1, [sp, 8]				// ..
-	str x0, [sp, 0]				// ..
+	stur x30, [sp, 96]			// Guarda la direccion desde donde se llamo a la rutina
+	stur x16, [sp, 88]			// Guarda los valores de los registros que voy a utilizar para no perder datos
+	stur x14, [sp, 80]			// ..
+	stur x12, [sp, 72]			// ..
+	stur x11, [sp, 64]			// ..
+	stur x10, [sp, 56]			// ..
+	stur x6, [sp, 48]			// ..
+	stur x5, [sp, 40]			// ..
+	stur x4, [sp, 32]			// ..
+	stur x3, [sp, 24]			// ..
+	stur x2, [sp, 16]			// ..
+	stur x1, [sp, 8]				// ..
+	stur x0, [sp, 0]				// ..
 	
 	mov x0, x20                  //Tomo de vuelta la direccion de inicio del buffer
 
@@ -113,26 +113,26 @@ loop0:
 	cbnz x3, loop2  //Si no es la ultima fila del cielo, ya cambie el color y tamaño, sigo pintando (salto) pero antes reestablezco los contadores x y de Altofranja
 end:
 
-	ldr x30, [sp, 96]			// Recupera la direccion desde donde se llamo a la rutina
-	ldr x16, [sp, 88]			// Recupera los valores de entrada de los registros
-	ldr x14, [sp, 80]			// ..
-	ldr x12, [sp, 72]			// ..
-	ldr x11, [sp, 64]			// ..
-	ldr x10, [sp, 56]			// ..
-	ldr x6, [sp, 48]			// ..
-	ldr x5, [sp, 40]			// ..
-	ldr x4, [sp, 32]			// ..
-	ldr x3, [sp, 24]			// ..
-	ldr x2, [sp, 16]			// ..
-	ldr x1, [sp, 8]				// ..
-	ldr x0, [sp, 0]				// ..
+	ldur x30, [sp, 96]			// Recupera la direccion desde donde se llamo a la rutina
+	ldur x16, [sp, 88]			// Recupera los valores de entrada de los registros
+	ldur x14, [sp, 80]			// ..
+	ldur x12, [sp, 72]			// ..
+	ldur x11, [sp, 64]			// ..
+	ldur x10, [sp, 56]			// ..
+	ldur x6, [sp, 48]			// ..
+	ldur x5, [sp, 40]			// ..
+	ldur x4, [sp, 32]			// ..
+	ldur x3, [sp, 24]			// ..
+	ldur x2, [sp, 16]			// ..
+	ldur x1, [sp, 8]				// ..
+	ldur x0, [sp, 0]				// ..
 	add sp, sp, 104				// Libera el stack
 	br x30						// Salta a la direccion desde donde se llamo a la rutina
 
 fondo:							// Esta rutina dibuja el fondo del dibujo a partir de los colores x5 (arena), x6 (cielo)
 
 	sub sp, sp, 8				// Reserva lugar en el stack
-	str x30, [sp, 0]			// Guarda la direccion desde donde se llamo a la rutina
+	stur x30, [sp, 0]			// Guarda la direccion desde donde se llamo a la rutina
 
 	bl desierto					// Dibuja el desierto
 
@@ -140,7 +140,7 @@ fondo:							// Esta rutina dibuja el fondo del dibujo a partir de los colores x
 
 	bl cielo					// Dibuja el cielo
 
-	ldr x30, [sp, 0]			// Recupera la direccion desde donde se llamo a la rutina
+	ldur x30, [sp, 0]			// Recupera la direccion desde donde se llamo a la rutina
 	add sp, sp, 8				// Libera el stack
 	br x30						// Salta a la direccion desde donde se llamo a la rutina
 
